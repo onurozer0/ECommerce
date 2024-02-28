@@ -1,0 +1,30 @@
+﻿<title>Hesabım</title>
+<!--start page wrapper -->
+<div class="page-wrapper">
+	<div class="page-content">
+		<!--start shop cart-->
+		<section class="py-4">
+			<div class="container">
+				<h3 class="d-none">Account</h3>
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<partial name="_LayoutForUserDashboard"></partial>
+							<div class="col-lg-8">
+								<div class="card shadow-none mb-0">
+									<div class="card-body">
+										<p>Merhaba <strong>@User.Identity.Name</strong> (Siz Değil Misiniz? <strong>@User.Identity.Name</strong>   <a asp-action="Logout" asp-route-returnUrl="/" asp-controller="Member">Çıkış Yap</a>)</p>
+										<p>Hesap sayfanızda siparişlerinizi görüntüleyebilirsiniz, hesap detaylarınızı değiştirebilir,adreslerinizi ve ödeme yöntemlerinizi yönetebilirsiniz.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end row-->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--end shop cart-->
+	</div>
+</div>
+<!--end page wrapper -->

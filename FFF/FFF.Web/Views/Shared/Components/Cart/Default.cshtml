@@ -1,0 +1,76 @@
+﻿@model IQueryable<Cart>
+
+<li class="nav-item dropdown dropdown-large">
+	<a href="#" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link" data-bs-toggle="dropdown">
+		@if (Model.Count() > 0)
+		{
+			<span class="alert-count">@Model.Count()</span>
+		}
+
+		<i class='bx bx-shopping-bag'></i>
+	</a>
+	<div class="dropdown-menu dropdown-menu-end">
+		<a asp-controller="Cart" asp-action="Index">
+			<div class="cart-header">
+				<p class="cart-header-title mb-0">@if (Model.Count() > 0)
+					{
+						@Model.Count();
+					}
+					else
+					{
+						Write("0");
+					}
+					ÜRÜN</p>
+				<p class="cart-header-clear ms-auto mb-0">SEPETİ GÖRÜNTÜLE</p>
+			</div>
+		</a>
+		<div class="cart-list">
+			@if (Model.Count() > 0)
+			{
+					@foreach (var item in Model)
+					{
+						<a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-productId="@item.ProductId">
+							<div class="d-flex align-items-center">
+								<div class="flex-grow-1">
+									<h6 class="cart-product-title">@item.Product.Name</h6>
+									<p class="cart-product-price">@item.Quantity X @(item.Product.Price * item.Quantity)₺</p>
+								</div>
+								<div class="position-relative">
+									<div class="cart-product">
+										@if (item.Product.ProductPicture.Count > 0)
+										{
+											<img src="@item.Product.ProductPicture.First().Picture" class="" alt="@item.Product.Name">
+										}
+										else
+										{
+											<img src="/img/hazirlaniyor.jpg" class="" alt="@item.Product.Name">
+										}
+
+									</div>
+								</div>
+							</div>
+						</a>
+					}
+			}
+		</div>
+		<a href="javascript:;">
+			<div class="text-center cart-footer d-flex align-items-center">
+				<h5 class="mb-0">TOPLAM</h5>
+				<h5 class="mb-0 ms-auto">
+					@if (Model.Count() > 0)
+					{
+						decimal cast = 0;
+						@foreach (var item in Model)
+						{
+							cast += (item.Quantity * item.Product.Price);
+						}
+						Write(cast + "₺");
+					}
+				</h5>
+			</div>
+		</a>
+		<div class="d-grid p-3 border-top">
+			<a asp-controller="Cart" asp-action="Checkout" class="btn btn-dark btn-ecomm">ÖDEMEYE GEÇ</a>
+		</div>
+	</div>
+</li>

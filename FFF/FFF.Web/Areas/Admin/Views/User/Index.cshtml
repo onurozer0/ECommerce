@@ -1,0 +1,95 @@
+﻿@model ICollection<UserViewModel>
+<title>Kullanıcı Yönetimi</title>
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Kullanıcılar</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="responsive-table-plugin">
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive" data-pattern="priority-columns">
+                                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                                        <table id="tech-companies-1" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th data-priority="1">Ad</th>
+                                                    <th data-priority="3">Soyad</th>
+                                                    <th data-priority="1">Kullanıcı Adı</th>
+                                                    <th data-priority="3">E-Posta</th>
+                                                    <th data-priority="3">Telefon Numarası</th>
+                                                    <th data-priority="4">Durum</th>
+                                                    <th data-priority="4">Son Giriş T.</th>
+                                                    <th data-priority="4">Son Giriş IP</th>
+                                                    <th data-priority="4"></th>
+                                                    <th data-priority="4"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if(Model != null)
+                                                {
+                                                    @foreach (var user in Model)
+                                                    {
+
+                                                        <tr>
+
+                                                            <td><span class="co-name"></span><a asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userId="@user.Id">@user.Id</a></td>
+
+                                                            <td>@user.Name</td>
+                                                            <td>@user.Surname</td>
+                                                            <td>@user.UserName</td>
+                                                            <td>@user.Email</td>
+                                                            <td>@user.PhoneNumber</td>
+                                                            <td>
+                                                                @{
+                                                                    if (!user.isBanned)
+                                                                    {
+                                                                        <i class="bi bi-check2"></i>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <i class="bi bi-x-circle"></i>
+                                                                    }
+                                                                }
+                                                            </td>
+                                                            <td>@user.LastLoginDate</td>
+                                                            <td>@user.LastLoginIP</td>
+                                                            <td><a asp-area="Admin" asp-controller="User" asp-action="Remove" asp-route-userId="@user.Id" class="btn btn-danger btn-sm rounded-0">Sil</a></td>
+                                                            <td><a asp-area="Admin" asp-controller="Role" asp-action="AssignRoleToUser" asp-route-userId="@user.Id" class="btn btn-primary btn-sm rounded-0">Rol Düzenle</a></td>
+                                                        </tr>
+
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- end .table-responsive -->
+
+                                </div> <!-- end .table-rep-plugin-->
+                            </div> <!-- end .responsive-table-plugin-->
+                        </div>
+                    </div> <!-- end card -->
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+</div>

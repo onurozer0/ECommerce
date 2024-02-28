@@ -1,0 +1,88 @@
+﻿<title>Anasayfa</title>
+@model IndexViewModel
+		<!--start slider section-->
+<section class="slider-section mb-4">
+	<div class="first-slider p-0">
+
+		<div class="banner-slider owl-carousel owl-theme">
+			@foreach (var slide in Model.Slides)
+			{
+				<partial name="_Slide" model="@slide"></partial>
+			}
+		</div>
+
+	</div>
+</section>
+<!--end slider section-->
+<!--start page wrapper -->
+<div class="page-wrapper">
+	<div class="page-content">
+		<!--start information-->
+		<section class="py-4">
+			<div class="container">
+			</div>
+		</section>
+		<!--end information-->
+		<!--start New Arrivals-->
+		<section class="py-4">
+			<div class="container">
+				<div class="separator pb-4">
+					<div class="line"></div>
+					<h5 class="mb-0 fw-bold separator-title">ÜRÜNLER</h5>
+					<div class="line"></div>
+				</div>
+				<div class="product-grid">
+					<div class="new-arrivals owl-carousel owl-theme position-relative">
+						@foreach (Product pVm in Model.Products)
+						{
+							<partial name="_Product" model="@pVm" />
+						}
+					</div>
+				</div>
+				
+			</div>
+		</section>
+		<!--end New Arrivals-->
+
+		<!--start support info-->
+		<section class="py-5 bg-light">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+					<div class="col">
+						<div class="text-center border p-4 bg-white">
+							<div class="font-50 text-dark">
+								<i class='bx bx-credit-card'></i>
+							</div>
+							<h5 class="fs-5 text-uppercase mb-0 fw-bold">Güvenli Ödeme</h5>
+							<p class="text-capitalize">Kart Bilgileriniz Saklanmaz</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna, et dapib.</p>
+						</div>
+					</div>
+					<div class="col">
+						<div class="text-center border p-4 bg-white">
+							<div class="font-50 text-dark">
+								<i class='bx bx-dollar-circle'></i>
+							</div>
+							<h5 class="fs-5 text-uppercase mb-0 fw-bold">Kolay İade</h5>
+							<p class="text-capitalize">30 Gün Para İade Garantisi</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna, et dapib.</p>
+						</div>
+					</div>
+					<div class="col">
+						<div class="text-center border p-4 bg-white">
+							<div class="font-50 text-dark">
+								<i class='bx bx-support'></i>
+							</div>
+							<h5 class="fs-5 text-uppercase mb-0 fw-bold">Destek</h5>
+							<p class="text-capitalize">7/24 Canlı Destek</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna, et dapib.</p>
+						</div>
+					</div>
+				</div>
+				<!--end row-->
+			</div>
+		</section>
+		<!--end support info-->
+	</div>
+</div>
+<!--end page wrapper -->

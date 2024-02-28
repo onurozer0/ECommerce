@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Slide>
+<title>Slide Yönetimi</title>
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Slidelar</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="responsive-table-plugin">
+
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive" data-pattern="priority-columns">
+                                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                                        <table id="tech-companies-1" class="table table-striped">
+
+                                            <thead>
+                                                <tr>
+                                                    <th>Slogan</th>
+                                                    <th>Slayt Başlığı</th>
+                                                    <th>Link</th>
+                                                    <th>Sıra</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model != null)
+                                                {
+                                                    foreach (Slide s in Model)
+                                                    {
+                                                        <tr>
+                                                            <td><a asp-controller="Slide" asp-action="Update" asp-route-slideId="@s.ID">@s.Slogan</a></td>
+                                                            <td>@s.Title</td>
+                                                            <td>@s.Link</td>
+                                                            <td>@s.DisplayIndex</td>
+                                                            <td>
+                                                                <a asp-controller="Slide" asp-action="Remove" asp-route-slideId="@s.ID" class="btn btn-danger" style="color:#fff">Sil</a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                <a class="btn btn-primary float-end" asp-area="Admin" asp-controller="Slide" asp-action="New">Yeni Ekle</a>
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- end .table-responsive -->
+
+                                </div> <!-- end .table-rep-plugin-->
+                            </div> <!-- end .responsive-table-plugin-->
+                        </div>
+                    </div> <!-- end card -->
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+</div>

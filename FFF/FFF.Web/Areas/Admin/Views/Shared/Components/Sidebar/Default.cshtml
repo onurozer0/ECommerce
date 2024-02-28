@@ -1,0 +1,17 @@
+﻿@model IEnumerable<ContactMessages>
+	@if (Model.Count() > 0)
+	{
+	<span class="badge bg-success float-end">
+		@if (Model.Count() > 9)
+		{
+			string a = @Model.Count().ToString() + "+";
+			Write(a);
+		}
+		else if (Model.Count() < 9 && Model.Count() != 0)
+		{
+			@Model.Count()
+
+		}
+        </span>
+	}
+	

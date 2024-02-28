@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Category>
+@foreach (var cat in Model)
+{
+	@if (cat.SubCategories.Any())
+	{
+		<li class="nav-item dropdown">
+			<a class="dropdown-item" asp-controller="Home" asp-action="CategoryProducts" asp-route-catId="@cat.ID">@cat.Name <i class='bx bx-chevron-right float-end'></i></a>
+			<ul class="submenu dropdown-menu">
+
+				@foreach (var subCat in cat.SubCategories)
+				{
+					<li>
+						<a class="dropdown-item" asp-controller="Home" asp-action="CategoryProducts" asp-route-catId="@subCat.ID">@subCat.Name</a>
+					</li>
+				}
+			</ul>
+		</li>
+	}
+
+	else
+	{
+		if(cat.ParentID == null)
+		{
+			<li>
+				<a class="dropdown-item" asp-controller="Home" asp-action="CategoryProducts" asp-route-catId="@cat.ID">@cat.Name</a>
+			</li>
+		}
+		
+	}
+}

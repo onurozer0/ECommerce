@@ -1,0 +1,171 @@
+﻿<title>Siparişi Tamamla</title>
+@model CreateOrderViewModel
+<div class="page-wrapper">
+	<div class="page-content">
+		<!--start shop cart-->
+		@if(Model.CartItems.Count > 0)
+		{
+			<form asp-controller="Cart" asp-action="Checkout" method="post">
+			<section class="py-4">
+				<div class="container">
+					<div class="shop-cart">
+						<div class="row">
+							<div class="col-12 col-xl-8">
+								<div class="checkout-payment">
+									<div class="card bg-transparent rounded-0 shadow-none">
+										<div class="card-body"></div>
+									</div>
+									<div class="card rounded-0 shadow-none border">
+										<div class="card-header border-bottom">
+											<h2 class="h5 my-2">Ödeme Bilgileri</h2>
+										</div>
+										<div class="card-body">
+											<div class="tab-content" id="pills-tabContent">
+												<div class="tab-pane fade show active" id="credit-card" role="tabpanel">
+													<div class="p-3 border">
+														
+															<div class="mb-3">
+																<label asp-for="@Model.OrderDt.CardNumber" class="form-label"></label>
+																<div class="input-group">
+																	<input type = "tel" asp-for="@Model.OrderDt.CardNumber" class="form-control rounded-0">
+																</div>
+																<span asp-validation-for="@Model.OrderDt.CardNumber" class="text-danger"></span>
+															</div>
+															<div class="row">
+																<div class="col-12 col-lg-8">
+																	<div class="mb-3">
+																		<label class="form-label">Son Kullanma Tarihi</label>
+																		<div class="input-group">
+																			<select class="form-select rounded-0" asp-for="@Model.OrderDt.CardMonth">
+																				@for (int i = 1; i <= 12; i++)
+																				{
+																					<option>@i</option>
+																				}
+																			</select>
+																			<span asp-validation-for="@Model.OrderDt.CardMonth" class="text-danger"></span>
+																			<select class="form-select rounded-0" asp-for="@Model.OrderDt.CarddYear">
+																				@for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(10).Year; i++)
+																				{
+																					<option>@i</option>
+																				}
+																			</select>
+													                        <span asp-validation-for="@Model.OrderDt.CarddYear" class="text-danger"></span>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-12 col-lg-4">
+																	<div class="mb-3">
+																		<label asp-for="@Model.OrderDt.CardCv2" class="form-label"></label>
+																		<input asp-for="@Model.OrderDt.CardCv2" class="form-control rounded-0">
+																		<span asp-validation-for="@Model.OrderDt.CardCv2" class="text-danger"></span>
+																	</div>
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="d-grid">
+																		<button type="submit" class="btn btn-dark btn-ecomm rounded-0">Siparişi Tamamla</button>
+																	</div>
+																</div>
+															</div>
+															
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card rounded-0 shadow-none border">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="d-grid">
+														<a asp-controller="Cart" asp-action="Index" class="btn btn-light btn-ecomm"><i class="bx bx-chevron-left"></i>Sepete Geri Dön</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-xl-4">
+								<div class="order-summary">
+									<div class="card rounded-0">
+										<div class="card-body">
+											<div class="card rounded-0 border bg-transparent shadow-none mb-3">
+												<div class="card-body">
+													<p class="fs-5">Adres Seçimi</p>
+													<div class="mb-3">
+														<label class="form-label">Adres Seçiniz</label>
+														<select asp-for="@Model.OrderDt.AddressId" class="form-select rounded-0">
+															<option value="@null">Adreslerim</option>
+															@foreach (var item in Model.Addresses)
+															{
+																<option value="@item.ID">@item.Title</option>
+															}
+														</select> 
+														<span asp-validation-for="@Model.OrderDt.AddressId" class="text-danger"></span>
+													</div>
+												</div>
+											</div>
+											<div class="card rounded-0 border bg-transparent shadow-none">
+												<div class="card-body">
+													<p class="fs-5">Ürünler</p>
+													@foreach (var cart in Model.CartItems)
+													{
+														<div class="my-3 border-top"></div>
+														<div class="d-flex align-items-center">
+															<a class="d-block flex-shrink-0" asp-controller="Product" asp-action="Index" asp-route-productId="@cart.ProductId">
+																@if (cart.Product.ProductPicture.Count > 0)
+																{
+																	<img src="@cart.Product.ProductPicture.First().Picture" width="75" alt="@cart.Product.Name">
+																}
+																else
+																{
+																	<img src="/img/hazirlaniyor.jpg" width="75" alt="@cart.Product.Name">
+																}
+															</a>
+															<div class="ps-2">
+																<h6 class="mb-1"><a asp-controller="Product" asp-action="Index" asp-route-productId="@cart.ProductId" class="text-dark">@cart.Product.Name</a></h6>
+																<div class="widget-product-meta">
+																	<span class="me-2">@cart.Product.Price ₺</span><span class="">x @cart.Quantity</span>
+																</div>
+															</div>
+														</div>
+													}
+												</div>
+											</div>
+											<div class="card rounded-0 border bg-transparent mb-0 shadow-none">
+												<div class="card-body">
+													<p class="mb-2">
+														Toplam: <span class="float-end">@Model.TotalFee ₺</span>
+													</p>
+													<p class="mb-2">
+														Kargo Ücreti: <span class="float-end">@Model.ShippingFee ₺</span>
+													</p>
+													<div class="my-3 border-top"></div>
+													<h5 class="mb-0">Genel Toplam: <span class="float-end">@(Model.ShippingFee + Model.TotalFee) ₺</span></h5>
+													<input type="hidden" value="@Model.ShippingFee" asp-for="@Model.ShippingFee" />
+													<input type="hidden" value ="@Model.TotalFee" asp-for="@Model.TotalFee" />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end row-->
+					</div>
+				</div>
+			</section>
+			@Html.AntiForgeryToken()
+			</form>
+		}
+		else
+		{
+			<div class="alert alert-primary" role="alert">
+				Sepetiniz Boş!
+			</div>
+		}
+		<!--end shop cart-->
+	</div>
+</div>

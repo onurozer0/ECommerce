@@ -1,0 +1,69 @@
+﻿@model UserAddressesViewModel
+<title>
+	Adres Ekle
+</title>
+<div class="page-wrapper">
+	<div class="page-content">
+		<!--start shop cart-->
+		<section class="py-4">
+			<div class="container">
+				<h3 class="d-none">Hesap</h3>
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<partial name="_LayoutForUserDashboard"></partial>
+							<div class="col-lg-8">
+								<div class="card shadow-none mb-0 border">
+									<div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert">
+									</div>
+									<div class="card-body">
+										<form class="row g-3" asp-controller="Member" asp-action="AddNewAddress" method="post">
+											<div class="col-12">
+												<label asp-for="@Model.Title" class="form-label"></label>
+												<input asp-for=@Model.Title type="text" class="form-control">
+												<span asp-validation-for="@Model.Title" class="text-danger"></span>
+											</div>
+											<div class="col-12">
+												<label asp-for=@Model.NameSurname class="form-label"></label>
+												<input asp-for=@Model.NameSurname maxlength="10" class="form-control">
+												<span asp-validation-for="@Model.NameSurname" class="text-danger"></span>
+											</div>
+											<div class="col-12">
+												<label asp-for=@Model.Address class="form-label"></label>
+												<input asp-for=@Model.Address type="" class="form-control">
+												<span asp-validation-for="@Model.Address" class="text-danger"></span>
+											</div>
+											<div class="col-md-6">
+												<label asp-for=@Model.City class="form-label"></label>
+												<select class="form-control" asp-for="@Model.City" asp-items="@ViewBag.CityList">
+													<option value="">Şehir</option>
+												</select>
+												<span asp-validation-for="@Model.City" class="text-danger"></span>
+											</div>
+											<div class="col-md-6">
+												<label asp-for=@Model.Zipcode class="form-label"></label>
+												<input asp-for=@Model.Zipcode type="" class="form-control">
+												<span asp-validation-for="@Model.Zipcode" class="text-danger"></span>
+											</div>
+											<div class="col-12">
+												<label asp-for=@Model.Phone class="form-label"></label>
+												<input id="phoneNumberInput" type="tel" class="form-control" asp-for=@Model.Phone>
+												<span asp-validation-for="@Model.Phone" class="text-danger"></span>
+											</div>
+											<div class="col-12">
+												<button type="submit" class="btn btn-primary btn-ecomm">Ekle</button>
+											</div>
+											@Html.AntiForgeryToken()
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end row-->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--end shop cart-->
+	</div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model Product
+<div class="item">
+	<div class="card">
+		<div class="position-relative overflow-hidden">
+			<div class="add-cart position-absolute top-0 end-0 mt-3 me-3">
+				<a href="javascript:;"><i class='bx bx-cart-add'></i></a>
+			</div>
+			<a href="javascript:;">
+				@if (Model.ProductPicture.Count > 0)
+				{
+					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model.ID">
+						<img src="@Model.ProductPicture.FirstOrDefault().Picture" class="img-fluid" alt="@Model.Name">
+					</a>
+				}
+				else
+				{
+					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model.ID"><img src="/img/hazirlaniyor.jpg" class="img-fluid" alt="@Model.Name"></a>
+
+				}
+			</a>
+		</div>
+		<div class="card-body px-0">
+			<div class="d-flex align-items-center justify-content-between">
+				<div class="">
+					<p class="mb-1 product-short-name">@Model.Category.Name</p>
+					<a asp-controller="Product" asp-action="Index" asp-route-productId="@Model.ID">
+						<h6 class="mb-0 fw-bold product-short-title">@Model.Name</h6>
+					</a>
+				</div>
+			</div>
+			<div class="product-price d-flex align-items-center justify-content-start gap-2 mt-2">
+				<div class="h6 fw-bold">@Model.Price ₺</div>
+			</div>
+		</div>
+	</div>
+</div>

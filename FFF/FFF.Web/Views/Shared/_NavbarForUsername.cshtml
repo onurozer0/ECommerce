@@ -1,0 +1,28 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+	<li class="nav-item dropdown dropdown-small">
+		<a href="#" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative cart-link" data-bs-toggle="dropdown">
+			<i class='bx bx-user'></i>
+		</a>
+		<ul class="dropdown-menu dropdown-menu-end">
+			<li class="nav-item-dropdown">
+				<a asp-controller="Member" asp-action="Dashboard" class="dropdown-header">@User.Identity.Name<i class='bx bxs-user-account float-end'></i></a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="dropdown-item" asp-controller="Member" asp-action="Dashboard">Hesabım <i class='bx bx-user float-end'></i></a>
+			</li>
+			<li>
+				<a class="dropdown-item" asp-action="Logout" asp-route-returnUrl="/" asp-controller="Member">Çıkış Yap <i class='bx bx-log-out float-end'></i></a>
+			</li>
+		</ul>
+	</li>
+}
+else
+{
+	<li class="nav-item">
+		<a asp-controller="User" asp-action="SignIn" class="nav-link cart-link"><i class='bx bx-log-in'></i></a>
+	</li>
+	<li class="nav-item">
+		<a asp-controller="User" asp-action="SignUp" class="nav-link cart-link"><i class='bx bx-user-plus'></i></a>
+	</li>
+}

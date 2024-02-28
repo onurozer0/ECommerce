@@ -1,0 +1,73 @@
+﻿@model ICollection<UserAddressesViewModel>
+<title>
+	Adreslerim
+</title>
+<!--start page wrapper -->
+<div class="page-wrapper">
+	<div class="page-content">
+		<!--start shop cart-->
+		<section class="py-4">
+			<div class="container">
+				<h3 class="d-none">Hesap</h3>
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<partial name="_LayoutForUserDashboard"></partial>
+							<div class="col-lg-8">
+								<div class="card shadow-none mb-0">
+									<div class="card-body">
+										<div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+										@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+										{
+											<div class="alert alert-success" role="alert">
+												@ViewBag.SuccessMessage
+											</div>
+										}
+										@if(Model != null)
+										{
+											<div class="table-responsive">
+												<table class="table">
+													<thead class="table-light">
+														<tr>
+															<th>Adres Başlığı</th>
+															<th>Adres</th>
+															<th></th>
+															<th></th>
+														</tr>
+													</thead>
+													<tbody>
+														@foreach (var address in Model)
+														{
+															<tr>
+																<td>@address.Title</td>
+																<td>@address.Address</td>
+																<td>
+																	<div class="d-flex gap-2">
+																		<a asp-controller="Member" asp-action="EditAddress" asp-route-addressId="@address.ID" class="btn btn-primary btn-sm rounded-0">Düzenle</a>
+																	</div>
+																</td>
+																<td>
+																	<div class="d-flex gap-2">
+																		<a asp-controller="Member" asp-action="RemoveAddress" asp-route-addressId="@address.ID" class="btn btn-danger btn-sm rounded-0">Sil</a>
+																	</div>
+																</td>
+															</tr>
+														}
+													</tbody>
+												</table>
+											</div>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+						<a asp-controller="Member" asp-action="AddNewAddress" class="btn btn-success btn-sm rounded-0 float-end">Yeni Ekle</a>
+						<!--end row-->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--end shop cart-->
+	</div>
+</div>
+<!--end page wrapper -->

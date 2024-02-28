@@ -1,0 +1,110 @@
+﻿@model MyOrdersViewModel
+<title>Sipariş Yönetimi</title>
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Siparişler</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            @if (TempData["Success"] != null)
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    @TempData["Success"]
+                                </div>
+                            }
+
+                            <div class="responsive-table-plugin">
+
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive" data-pattern="priority-columns">
+                                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                                        <table id="tech-companies-1" class="table table-striped">
+
+                                            <thead>
+                                                <tr>
+                                                    <th>Sipariş Numarası</th>
+                                                    <th>Kullanıcı Adı</th>
+                                                    <th>Sipariş Tarihi</th>
+                                                    <th>Toplam</th>
+                                                    <th>Kargo Ücreti</th>
+                                                    <th>Genel Toplam</th>
+                                                    <th>Durum</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model != null)
+                                                {
+                                                    foreach (var o in Model.Orders)
+                                                    {
+                                                        <tr>
+                                                            <td>@o.OrderNumber</td>
+                                                            <td>@o.User.UserName</td>
+                                                            <td>@o.CreatedDate</td>
+                                                            <td>@o.TotalFee ₺</td>
+                                                            <td>@o.ShippingFee ₺</td>
+                                                            <td>
+                                                                @{
+                                                                    var a = o.ShippingFee + o.TotalFee;
+                                                                    Write(a);
+                                                                } ₺
+                                                            </td>
+                                                            <td>
+                                                                @{
+                                                                    if (o.OrderStatus == OrderStatus.Hazirlaniyor) Write("Hazırlanıyor");
+                                                                    if (o.OrderStatus == OrderStatus.OnayVerildi) Write("Onaylandı");
+                                                                    if (o.OrderStatus == OrderStatus.IptalEdildi) Write("İptal Edildi");
+                                                                    if (o.OrderStatus == OrderStatus.KargoyaVerildi) Write("Kargoya Verildi");
+                                                                    if (o.OrderStatus == OrderStatus.TeslimEdildi) Write("Teslim Edildi");
+                                                                }
+                                                            <td>
+
+                                                            <td>
+                                                                <a asp-controller="Orders" asp-action="Details" asp-route-orderId="@o.ID" class="btn btn-primary" style="color:#fff">Detay</a>
+                                                            </td>
+                                                                    @if (o.OrderStatus != OrderStatus.IptalEdildi)
+                                                                    {
+                                                                <td>
+                                                                    <a asp-controller="Orders" asp-action="Cancel" asp-route-orderId="@o.ID" class="btn btn-warning" style="color:#fff">İptal Et</a>
+                                                                </td>
+                                                                    }
+                                                            <td>
+                                                                <a asp-controller="Orders" asp-action="Remove" asp-route-orderId="@o.ID" class="btn btn-danger" style="color:#fff">Sil</a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- end .table-responsive -->
+
+                                </div> <!-- end .table-rep-plugin-->
+                            </div> <!-- end .responsive-table-plugin-->
+                        </div>
+                    </div> <!-- end card -->
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+</div>

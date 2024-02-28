@@ -1,0 +1,99 @@
+﻿@model MyOrdersViewModel
+<title>
+	Siparişlerim
+</title>
+<!--start page wrapper -->
+<div class="page-wrapper">
+	<div class="page-content">
+		<!--start shop cart-->
+		<section class="py-4">
+			<div class="container">
+				<h3 class="d-none">Account</h3>
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<partial name="_LayoutForUserDashboard"></partial>
+							<div class="col-lg-8">
+								<div class="card shadow-none mb-0">
+									<div class="card-body">
+										<div class="table-responsive">
+											<div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert">
+											</div>
+											<table class="table">
+												<thead class="table-light">
+													<tr>
+														<th>Sip. No.</th>
+														<th>Tarih</th>
+														<th>Durum</th>
+														<th>Ürünler Toplamı</th>
+														<th>Kargo</th>
+														<th>Genel Toplam</th>
+														<th>İşlemler</th>
+													</tr>
+												</thead>
+												<tbody>
+													@foreach (var order in Model.Orders)
+													{
+														<tr>
+															<td>#@order.OrderNumber</td>
+															<td>@order.CreatedDate</td>
+															<td>
+																@if (order.OrderStatus == OrderStatus.IptalEdildi)
+																{
+																	<div class="badge rounded-pill bg-danger w-100">
+																		@{
+																			if (order.OrderStatus == OrderStatus.Hazirlaniyor) Write("Hazırlanıyor");
+																			if (order.OrderStatus == OrderStatus.OnayVerildi) Write("Onaylandı");
+																			if (order.OrderStatus == OrderStatus.IptalEdildi) Write("İptal Edildi");
+																			if (order.OrderStatus == OrderStatus.KargoyaVerildi) Write("Kargoya Verildi");
+																			if (order.OrderStatus == OrderStatus.TeslimEdildi) Write("Teslim Edildi");
+																		}
+																	</div>
+																}
+																else
+																{
+																	<div class="badge rounded-pill bg-success w-100">
+																		@{
+																			if (order.OrderStatus == OrderStatus.Hazirlaniyor) Write("Hazırlanıyor");
+																			if (order.OrderStatus == OrderStatus.OnayVerildi) Write("Onaylandı");
+																			if (order.OrderStatus == OrderStatus.IptalEdildi) Write("İptal Edildi");
+																			if (order.OrderStatus == OrderStatus.KargoyaVerildi) Write("Kargoya Verildi");
+																			if (order.OrderStatus == OrderStatus.TeslimEdildi) Write("Teslim Edildi");
+																		}
+																	</div>
+																}
+															</td>
+															<td> @order.TotalQuantity ürün @order.TotalFee ₺</td>
+															<td> @order.ShippingFee ₺</td>
+															<td>
+																@{
+																	var a = order.ShippingFee + order.TotalFee;
+																	Write(a);
+																} ₺
+															</td>
+															<td>
+																<div class="d-flex gap-2">
+																	@if (order.OrderStatus == OrderStatus.Hazirlaniyor || order.OrderStatus == OrderStatus.OnayVerildi)
+																	{
+																		<a asp-controller="Orders" asp-action="Cancel" asp-route-orderId="@order.ID" class="btn btn-dark btn-sm rounded-0">İptal Et</a>
+																	}
+																</div>
+															</td>
+														</tr>
+													}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end row-->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--end shop cart-->
+	</div>
+</div>
+<!--end page wrapper -->

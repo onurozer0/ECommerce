@@ -1,0 +1,14 @@
+﻿<div class="col-lg-4">
+	<div class="card shadow-none mb-3 mb-lg-0 border rounded-0">
+		<div class="card-body">
+			<div class="list-group list-group-flush">
+				<a asp-controller="Member" asp-action="Dashboard" id="userDashboardOption" class="list-group-item d-flex justify-content-between align-items-center">Hesabım <i class='bx bx-tachometer fs-5'></i></a>
+				<a asp-controller="Orders" asp-action="MyOrders" id="userDashboardOption" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Siparişlerim <i class='bx bx-cart-alt fs-5'></i></a>
+				<a asp-controller="Member" asp-action="MyAddresses" id="userDashboardOption" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Adreslerim <i class='bx bx-home-smile fs-5'></i></a>
+				<a asp-controller="Member" asp-action="AccountDetails" id="userDashboardOption" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Hesap Detayları <i class='bx bx-user-circle fs-5'></i></a>
+				<a asp-controller="Member" asp-action="ChangePassword" id="userDashboardOption" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Şifre Değiştirme <i class='bx bx-user-circle fs-5'></i></a>
+				<a asp-action="Logout" asp-route-returnUrl="/" asp-controller="Member" id="userDashboardOption" class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Çıkış <i class='bx bx-log-out fs-5'></i></a>
+			</div>
+		</div>
+	</div>
+</div>

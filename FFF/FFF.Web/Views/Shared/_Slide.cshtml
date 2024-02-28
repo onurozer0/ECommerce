@@ -1,0 +1,16 @@
+﻿@model Slide
+<div class="item">
+	<div class="position-relative">
+		<div class="position-absolute top-50 slider-content translate-middle">
+			<h3 class="h3 fw-bold d-none d-md-block">@Model.Title</h3>
+			<h1 class="h1 fw-bold">@Model.Slogan</h1>
+			<p class="fw-bold text-dark d-none d-md-block"><i>@Model.Description</i></p>
+			<div class="">
+				<a class="btn btn-dark btn-ecomm px-4" href="@Model.Link">@Model.LinkTitle</a>
+			</div>
+		</div>
+		<a href="@Model.Link">
+			<img src="@Model.Picture" class="img-fluid" alt="@Model.Title">
+		</a>
+	</div>
+</div>

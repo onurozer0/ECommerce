@@ -1,0 +1,103 @@
+﻿<title>Sepet</title>
+@model CartViewModel
+@{
+	decimal totalFee = 0;
+}
+<div class="page-wrapper">
+	<div class="page-content">
+		<!--start shop cart-->
+		<section class="py-4">
+			<div class="container">
+				<div class="shop-cart">
+					<div class="row">
+						@if(Model.Cart.Count > 0)
+						{
+							<div class="col-12 col-xl-8">
+								<div class="shop-cart-list mb-3 p-3">
+									@foreach (var cart in Model.Cart)
+									{
+											<div class="row align-items-center g-3">
+												<div class="col-12 col-lg-6">
+													<div class="d-lg-flex align-items-center gap-3">
+														<div class="cart-img text-center text-lg-start">
+															<a asp-controller="Product" asp-action="Index" asp-route-productId="@cart.ProductId">
+															@if (cart.Product.ProductPicture.Count > 0)
+															{
+																<img src="@cart.Product.ProductPicture.First().Picture" width="130" alt="@cart.Product.Name">
+															}
+															else
+															{
+																<img src="/img/hazirlaniyor.jpg" width="130" alt="@cart.Product.Name">
+															}
+															</a>
+														</div>
+														<div class="cart-detail text-center text-lg-start">
+															<h6 class="mb-2">@cart.Quantity X @cart.Product.Name</h6>
+
+															<h5 class="mb-0">
+																@{
+																	decimal cast = 0;
+																	cast = cart.Quantity * cart.Product.Price;
+																	Write(cast + "₺");
+																	totalFee += cast;
+																}
+															</h5>
+														</div>
+													</div>
+												</div>
+												<div class="col-12 col-lg-3">
+													<div class="text-center">
+														<div class="d-flex gap-3 justify-content-center justify-content-lg-end">
+															<a asp-controller="Cart" asp-action="Remove" asp-route-cartId="@cart.Id" class="btn btn-outline-dark rounded-0 btn-ecomm"><i class='bx bx-x'></i>SİL</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										<hr>
+									}
+									<div class="d-lg-flex align-items-center gap-2">
+										<a asp-controller="Cart" asp-action="RemoveAll" class="btn btn-light btn-ecomm ms-auto"><i class='bx bx-x-circle'></i> Sepeti Temizle</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-xl-4">
+								<div class="checkout-form p-3 bg-light">
+									<div class="card rounded-0 border bg-transparent mb-0 shadow-none">
+										<div class="card-body">
+											<p class="mb-2">
+												Toplam: <span class="float-end">@totalFee ₺</span>
+											</p>
+											<p class="mb-2">
+												Kargo Ücreti: <span class="float-end">@if(Model.ShippingFee != 0)
+													{
+														@Model.ShippingFee
+														totalFee += Model.ShippingFee;
+													}
+													₺
+												</span>
+											</p>
+											<div class="my-3 border-top"></div>
+											<h5 class="mb-0">Genel Toplam: <span class="float-end">@totalFee ₺</span></h5>
+											<div class="my-4"></div>
+											<div class="d-grid">
+												<a asp-controller="Cart" asp-action="Checkout" class="btn btn-dark btn-ecomm">Ödemeye Geç</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+						else
+						{
+							<div class="alert alert-primary" role="alert">
+								Sepetiniz Boş!
+							</div>
+						}
+					</div>
+					<!--end row-->
+				</div>
+			</div>
+		</section>
+		<!--end shop cart-->
+	</div>
+</div>
